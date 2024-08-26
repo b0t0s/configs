@@ -1,179 +1,212 @@
-# Modifier key setup
-set $mod Mod4
+[colors]
+primary = #1e1e20
+secondary = #bfbfbf
+highlight = #800000
+urgent = #BA2922
 
-# Window borders and appearance
-new_window pixel 2
-new_float pixel 2
-hide_edge_borders both
+[bar/i3wmthemer_bar]
+width = 100%
+height = 30
+radius = 0
+fixed-center = false
 
-# Font setup
-font xft:Fira Code 11
+background = ${colors.primary}
+foreground = ${colors.secondary}
 
-# Focus follows mouse setting
-focus_follows_mouse no
+line-size = 3
+line-color = ${colors.secondary}
 
-## Toggle sticky
-bindsym $mod+Shift+s sticky toggle
+border-size = 0
+border-color = ${colors.secondary}
 
-## Scratchpad management
-bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show
+padding-left = 0
+padding-right = 2
 
-# Workspace settings
-workspace 1 output eDP-1
-workspace 5 output HDMI-1-0
-exec --no-startup-id xrandr --output HDMI-1-0 --rotate right --auto --rate 100.00 --right-of eDP-1
+module-margin-left = 1
+module-margin-right = 2
 
-## Restart i3 inplace
-bindsym $mod+Shift+r restart
+font-0 = "Fira Code:style=semibold:size=10;1"
+font-1 = "FontAwesome:size=10;1"
+font-2 = "Font Awesome 5 free:size=10;1"
 
-# Workspace names
-set $ws1 1
-set $ws2 2
-set $ws3 3
-set $ws4 4
-set $ws5 5
+modules-left = tray
+modules-center =
+modules-right = date temperature cpu memory filesystem battery pulseaudio wlan eth i3 powermenu
 
-# Autostart applications
-exec xset r rate 200 40
-exec --no-startup-id picom
-exec_always --no-startup-id numlockx on
-exec --no-startup-id xautolock -time 10 -locker 'i3lock-fancy -p'
-exec_always --no-startup-id $HOME/.config/polybar/i3wmthemer_bar_launch.sh
-exec_always --no-startup-id xwallpaper --daemon --zoom /home/alvin/.config/xwallpaper/007.jpg
+tray-position = left
+override-redirect = false
 
-# Theme colors
-client.focused          #800000 #bfbfbf #800000 #800000 #800000
-client.focused_inactive #800000 #bfbfbf #800000 #bfbfbf #bfbfbf
-client.unfocused        #800000 #bfbfbf #800000 #bfbfbf #bfbfbf
-client.urgent           #800000 #bfbfbf #800000 #bfbfbf #bfbfbf
-client.placeholder      #800000 #bfbfbf #800000 #bfbfbf #bfbfbf
-client.background       #800000
+cursor-click = pointer
+cursor-scroll = ns-resize
 
-#client.focused          #56737a #1e1e20 #56737a #56737a #56737a
-#client.focused_inactive #56737a #1e1e20 #56737a #2c5159 #2c5159
-#client.unfocused        #56737a #1e1e20 #56737a #2c5159 #2c5159
-#client.urgent           #56737a #1e1e20 #56737a #2c5159 #2c5159
-#client.placeholder      #56737a #1e1e20 #56737a #2c5159 #2c5159
-#client.background       #1e1e20
+[settings]
+screenchange-reload = true
 
-# Keybindings for window management
+[global/wm]
+margin-top = 10
+margin-bottom = 10
 
-## Border style control
-bindsym $mod+u border none
-bindsym $mod+y border pixel 1
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
 
-## Window kill command
-bindsym $mod+Shift+q kill
+label-mode-padding = 2
+label-mode-foreground = ${colors.primary}
+label-mode-background = ${colors.secondary}
 
-## Change focus direction
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+label-focused = %index%
+label-focused-background = ${colors.highlight}
+label-focused-foreground = ${colors.secondary}
+label-focused-padding = 2
 
-## Move focused window
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+label-unfocused = %index%
+label-unfocused-background = ${colors.primary}
+label-unfocused-foreground = ${colors.secondary}
+label-unfocused-padding = 2
 
-## Split orientation
-bindsym $mod+q split toggle
-bindsym $mod+h split h;exec notify-send 'tile horizontally'
-bindsym $mod+v split v;exec notify-send 'tile vertically'
+label-visible = %index%
+label-visible-background = ${colors.primary}
+label-visible-foreground = ${colors.secondary}
+label-visible-padding = 2
 
-## Toggle fullscreen mode
-bindsym $mod+f fullscreen toggle
+label-urgent = %index%
+label-urgent-background = ${colors.urgent}
+label-urgent-padding = 2
 
-## Change container layout
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+[module/date]
+type = internal/date
+interval = 1
 
-## Navigate workspaces next / previous
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+Left workspace prev
+date =
+date-alt = "%d-%m-%Y"
 
-## Switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
+time = " %H:%M:%S"
+time-alt = " %H:%M:%S"
 
-## Move to workspace with focused container
-bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
+format-prefix = 
+format-foreground = ${colors.primary}
+format-background = ${colors.secondary}
+format-padding = 2
 
-## Resize window mode
-bindsym $mod+r mode "resize"
-mode "resize" {
-    bindsym Left resize shrink width 10 px or 10 ppt
-    bindsym Down resize grow height 10 px or 10 ppt
-    bindsym Up resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
+label = %time% %date%
 
-    # Exit resize mode: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
+[module/tray]
+type = internal/tray
 
-# Floating window settings
+format-margin = 0px
+tray-spacing = 0px
 
-# Modifier key for floating mode
-floating_modifier $mod
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
 
-## Switch to workspace with urgent window automatically
-for_window [urgent=latest] focus
+label-layout = "  %layout%  "
+label-layout-underline = ${colors.secondary}
+label-layout-foreground = ${colors.primary}
+label-layout-background = ${colors.secondary}
 
-## Focus mode toggle between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+[module/temperature]
+type = internal/temperature
+interval = 5
+thermal-zone = 5
+zone-type = x86_pkg_temp
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input
+warn-temperature = 80
 
-## Toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix-foreground = ${colors.secondary}
+label =  %percentage:%%
 
-## Open specific applications in floating mode
-for_window [title="QEMU"] floating enable
-for_window [title="htop"] floating enable sticky
-#for_window [class="Skype"] floating enable
-#for_window [class="Deezer"] floating enable
-#for_window [title="Discord*"] floating enable
-for_window [title="alsamixer"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="GParted"] floating enable border normal
-for_window [class="Galculator"] floating enable border pixel 1
-for_window [class="Clipgrab"] floating enable
-for_window [window_role="About"] floating enable
-for_window [title="File Transfer*"] floating enable
-for_window [class="(?i)gnome-calculator"] floating enable
-for_window [title="i3_help"] floating enable sticky enable border normal
-for_window [class="Lightdm-gtk-greeter-settings"] floating enable
-for_window [class="(?i)System-config-printer.py"] floating enable border normal
+[module/memory]
+type = internal/memory
+interval = 2
+label =  %percentage_used%%
 
-# User-defined keybindings
+[module/filesystem]
+type = internal/fs
+interval = 25
+mount-0 = /
 
-## Touchpad control
-bindsym XF86TouchpadOn exec --no-startup-id synclient Touchpadoff=0
-bindsym XF86TouchpadOff exec --no-startup-id synclient Touchpadoff=1
+label-mounted =  %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.secondary}
 
-## Volume control
-bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 0 -q set Master 2dB+ unmute
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 0 -q set Master 2db- unmute
+[module/wlan]
+type = internal/network
+interface = wlp0s20f3
+interval = 30.0
 
-## Custom keybindings
-bindsym Print exec flameshot gui
-bindsym $mod+Return exec alacritty
-bindsym $mod+F1 exec --no-startup-id deezer-desktop
-bindsym $mod+F2 exec --no-startup-id pavucontrol
-bindsym $mod+F3 exec --no-startup-id discord
-bindsym $mod+F4 exec --no-startup-id telegram
-bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/type-1/launcher.sh
+label-connected = %essid%
+format-connected = "<label-connected>"
+format-connected-foreground = ${colors.secondary}
+format-connected-background = ${colors.primary}
+format-connected-padding = 2
 
-#gaps
-gaps inner 25
-gaps outer 0
-smart_gaps true
+[module/eth]
+type = internal/network
+interface = enp2s0
+interval = 3.0
+
+label-connected = %local_ip%
+format-connected-padding = 2
+format-connected-foreground = ${colors.highlight}
+format-connected-background = ${colors.primary}
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.highlight}
+
+[module/battery]
+type = internal/battery
+battery = BAT1
+adapter = AC
+full-at = 100
+
+label-charging = %percentage% %
+label-discharging =  %percentage% %
+label-full = %{F#4be349} %percentage% %
+
+format-charging = <animation-charging> <label-charging>
+format-discharging = <label-discharging>
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = %{F#4be349} 
+animation-charging-framerate = 750
+
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-4 = 
+animation-discharging-framerate = 750
+
+cursor-click = ~/.config/rofi/applets/bin/battery.sh
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <label-volume>
+label-volume = "   %percentage%%  "
+
+label-muted =  mute
+label-muted-foreground = #666
+label-muted-background = ${colors.secondary}
+
+label-volume-foreground = ${colors.primary}
+label-volume-background = ${colors.secondary}
+
+;; Power Menu Module
+[module/powermenu]
+type = custom/text
+
+content =  
+
+content-background = ${colors.primary}
+content-foreground = ${colors.secondary}
+
+click-left = ~/.config/rofi/powermenu/type-1/powermenu.sh
+click-right = powermenu_t1
